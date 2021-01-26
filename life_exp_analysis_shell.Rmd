@@ -1,6 +1,6 @@
 ---
 title: "Examine Life Expectancy"
-author: "Your Name"
+author: "Zach Lyons"
 date: "`r Sys.Date()`"
 output:
   html_document:
@@ -16,4 +16,19 @@ knitr::opts_chunk$set(echo = TRUE)
 
 Here, I re-examine the analysis of Oeppen and Vaupel (2002).
 
-# Analysis
+# Life Expectancy Analysis
+
+```{r}
+lapply(c("tidyverse","gapminder"),library, character.only=TRUE)
+data("gapminder_unfiltered")
+```
+
+```{r}
+sumdat <-gapminder_unfiltered %>%
+  group_by(year) %>%
+  filter(lifeExp == max(lifeExp)) %>%
+  ungroup(year) %>%
+  select(year, country, lifeExp) %>%
+  arrange(year) 
+```
+
